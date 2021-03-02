@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "jsx": "react",
+    "lib": [ "DOM", "ESNext" ],
+    "module": "ES2020",
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "target": "ES2020",
+    "resolveJsonModule": true
+  },
+  "typeAcquisition": {
+    "enable": true
+  },
+  "include": [
+    "./src/"
+  ]
+}
