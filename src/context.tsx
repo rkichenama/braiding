@@ -16,13 +16,13 @@ interface BraidingType extends BraidingState {
   dispatch?: React.Dispatch<MenuAction>
 }
 export const defaultValue = {
-  rows: 40,
-  left: 12,
-  right: 12,
+  rows: 24,
+  left: 8,
+  right: 8,
   leftClr: '#333333',
-  leftBase: 'u6 o6',
-  rightClr: '#cccccc',
-  rightBase: 'u6 o6',
+  leftBase: 'u4 o4',
+  rightClr: '#088',
+  rightBase: 'u4 o4',
   pattern: [[], []]
 } as BraidingType;
 const BraidingContext = React.createContext(defaultValue);

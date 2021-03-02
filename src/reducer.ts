@@ -62,13 +62,13 @@ const Mutations = {
 }
 
 const initializer = ({
-  rows = 40,
+  rows = 24,
   left = 12,
   right = 12,
   leftClr = '#ff00ff',
-  leftBase = 'u6 o6',
+  leftBase = 'u4 o4',
   rightClr = '#00ffff',
-  rightBase = 'u6 o6',
+  rightBase = 'u4 o4',
   pattern = [[], []]
 }: BraidingState) => ({
   rows, left, right, leftClr, leftBase, rightClr, rightBase, pattern
