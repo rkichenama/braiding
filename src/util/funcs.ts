@@ -44,7 +44,7 @@ export const compressPattern = (rows, left, right, leftClr, rightClr, matrix) =>
 ].join(',');
 export const decompressPattern = (str: string) => {
   const [ rows, left, right, leftClr, rightClr, patternStr ] = str.split(',');
-  const len = [ left, right ];
+  const len = [ Number(left), Number(right) ];
   return {
     rows,
     left, right, leftClr, rightClr,
