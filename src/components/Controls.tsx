@@ -28,12 +28,6 @@ const Controls: React.FC<any> = () => {
       if (str.length) {
         try {
           const { rows, left, right, leftClr, rightClr, pattern } = decompressPattern(str);
-          // console.log(left, right, pattern)
-          // changeStrands('left', left);
-          // changeStrands('right', right);
-          // changeColors('left', leftClr);
-          // changeColors('right', rightClr);
-          // setPattern(pattern);
           dispatch({ type: Actions.replaceState, payload: {
             ...defaultValue,
             rows, left, right, leftClr, rightClr, pattern
@@ -64,7 +58,7 @@ const Controls: React.FC<any> = () => {
         <label>Strands on Left</label>
         <input
           type='range'
-          max={16}
+          max={32}
           min={4}
           value={left}
           onChange={changeRows('left', n => Number(n))}
@@ -82,7 +76,7 @@ const Controls: React.FC<any> = () => {
         <label>Strands on Right</label>
         <input
           type='range'
-          max={16}
+          max={32}
           min={4}
           value={right}
           onChange={changeRows('right', n => Number(n))}

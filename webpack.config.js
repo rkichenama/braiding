@@ -6,7 +6,10 @@ const webpack = require('webpack');
 
 module.exports = {
   devServer: {
-    contentBase: join(__dirname, 'dist'),
+    // contentBase: join(__dirname, 'dist'),
+    static: {
+      directory: join(__dirname, 'dist')
+    },
     compress: true,
     port: 9000
   },
