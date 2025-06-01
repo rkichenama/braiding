@@ -11,7 +11,7 @@ module.exports = {
       directory: join(__dirname, 'dist')
     },
     compress: true,
-    port: 9000
+    port: 4242
   },
   entry: {
     script: resolve(__dirname, 'src/index.tsx'),

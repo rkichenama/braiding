@@ -45,11 +45,135 @@
         transform: rotate(-45deg);
         flex-direction: row-reverse;
 
-        .over { background-color: var(--clr-left); }
-        .under { background-color: var(--clr-right); }
-        // > div {
-        //   background-color: red;
-        // }
+        .strand-01 {
+          &.over { background-color: var(--clr-left-01); }
+          &.under { background-color: var(--clr-right-01); }
+        }
+        .strand-02 {
+          &.over { background-color: var(--clr-left-02); }
+          &.under { background-color: var(--clr-right-02); }
+        }
+        .strand-03 {
+          &.over { background-color: var(--clr-left-03); }
+          &.under { background-color: var(--clr-right-03); }
+        }
+        .strand-04 {
+          &.over { background-color: var(--clr-left-04); }
+          &.under { background-color: var(--clr-right-04); }
+        }
+        .strand-05 {
+          &.over { background-color: var(--clr-left-05); }
+          &.under { background-color: var(--clr-right-05); }
+        }
+        .strand-06 {
+          &.over { background-color: var(--clr-left-06); }
+          &.under { background-color: var(--clr-right-06); }
+        }
+        .strand-07 {
+          &.over { background-color: var(--clr-left-07); }
+          &.under { background-color: var(--clr-right-07); }
+        }
+        .strand-08 {
+          &.over { background-color: var(--clr-left-08); }
+          &.under { background-color: var(--clr-right-08); }
+        }
+        .strand-09 {
+          &.over { background-color: var(--clr-left-09); }
+          &.under { background-color: var(--clr-right-09); }
+        }
+        .strand-10 {
+          &.over { background-color: var(--clr-left-10); }
+          &.under { background-color: var(--clr-right-10); }
+        }
+        .strand-11 {
+          &.over { background-color: var(--clr-left-11); }
+          &.under { background-color: var(--clr-right-11); }
+        }
+        .strand-12 {
+          &.over { background-color: var(--clr-left-12); }
+          &.under { background-color: var(--clr-right-12); }
+        }
+        .strand-13 {
+          &.over { background-color: var(--clr-left-13); }
+          &.under { background-color: var(--clr-right-13); }
+        }
+        .strand-14 {
+          &.over { background-color: var(--clr-left-14); }
+          &.under { background-color: var(--clr-right-14); }
+        }
+        .strand-15 {
+          &.over { background-color: var(--clr-left-15); }
+          &.under { background-color: var(--clr-right-15); }
+        }
+        .strand-16 {
+          &.over { background-color: var(--clr-left-16); }
+          &.under { background-color: var(--clr-right-16); }
+        }
+        .strand-17 {
+          &.over { background-color: var(--clr-left-17); }
+          &.under { background-color: var(--clr-right-17); }
+        }
+        .strand-18 {
+          &.over { background-color: var(--clr-left-18); }
+          &.under { background-color: var(--clr-right-18); }
+        }
+        .strand-19 {
+          &.over { background-color: var(--clr-left-19); }
+          &.under { background-color: var(--clr-right-19); }
+        }
+        .strand-20 {
+          &.over { background-color: var(--clr-left-20); }
+          &.under { background-color: var(--clr-right-20); }
+        }
+        .strand-21 {
+          &.over { background-color: var(--clr-left-21); }
+          &.under { background-color: var(--clr-right-21); }
+        }
+        .strand-22 {
+          &.over { background-color: var(--clr-left-22); }
+          &.under { background-color: var(--clr-right-22); }
+        }
+        .strand-23 {
+          &.over { background-color: var(--clr-left-23); }
+          &.under { background-color: var(--clr-right-23); }
+        }
+        .strand-24 {
+          &.over { background-color: var(--clr-left-24); }
+          &.under { background-color: var(--clr-right-24); }
+        }
+        .strand-25 {
+          &.over { background-color: var(--clr-left-25); }
+          &.under { background-color: var(--clr-right-25); }
+        }
+        .strand-26 {
+          &.over { background-color: var(--clr-left-26); }
+          &.under { background-color: var(--clr-right-26); }
+        }
+        .strand-27 {
+          &.over { background-color: var(--clr-left-27); }
+          &.under { background-color: var(--clr-right-27); }
+        }
+        .strand-28 {
+          &.over { background-color: var(--clr-left-28); }
+          &.under { background-color: var(--clr-right-28); }
+        }
+        .strand-29 {
+          &.over { background-color: var(--clr-left-29); }
+          &.under { background-color: var(--clr-right-29); }
+        }
+        .strand-30 {
+          &.over { background-color: var(--clr-left-30); }
+          &.under { background-color: var(--clr-right-30); }
+        }
+        .strand-31 {
+          &.over { background-color: var(--clr-left-31); }
+          &.under { background-color: var(--clr-right-31); }
+        }
+        .strand-32 {
+          &.over { background-color: var(--clr-left-32); }
+          &.under { background-color: var(--clr-right-32); }
+        }
+
         &:after {
           @extend %flex-center;
           justify-content: flex-start;
@@ -66,11 +190,136 @@
         position: relative;
         transform-origin: right bottom;
         transform: rotate(45deg) translateX(-26px);
-        .over { background-color: var(--clr-right); }
-        .under { background-color: var(--clr-left); }
-        // > div {
-        //   background-color: blue;
-        // }
+
+        .strand-01 {
+          &.over { background-color: var(--clr-right-01); }
+          &.under { background-color: var(--clr-left-01); }
+        }
+        .strand-02 {
+          &.over { background-color: var(--clr-right-02); }
+          &.under { background-color: var(--clr-left-02); }
+        }
+        .strand-03 {
+          &.over { background-color: var(--clr-right-03); }
+          &.under { background-color: var(--clr-left-03); }
+        }
+        .strand-04 {
+          &.over { background-color: var(--clr-right-04); }
+          &.under { background-color: var(--clr-left-04); }
+        }
+        .strand-05 {
+          &.over { background-color: var(--clr-right-05); }
+          &.under { background-color: var(--clr-left-05); }
+        }
+        .strand-06 {
+          &.over { background-color: var(--clr-right-06); }
+          &.under { background-color: var(--clr-left-06); }
+        }
+        .strand-07 {
+          &.over { background-color: var(--clr-right-07); }
+          &.under { background-color: var(--clr-left-07); }
+        }
+        .strand-08 {
+          &.over { background-color: var(--clr-right-08); }
+          &.under { background-color: var(--clr-left-08); }
+        }
+        .strand-09 {
+          &.over { background-color: var(--clr-right-09); }
+          &.under { background-color: var(--clr-left-09); }
+        }
+        .strand-10 {
+          &.over { background-color: var(--clr-right-10); }
+          &.under { background-color: var(--clr-left-10); }
+        }
+        .strand-11 {
+          &.over { background-color: var(--clr-right-11); }
+          &.under { background-color: var(--clr-left-11); }
+        }
+        .strand-12 {
+          &.over { background-color: var(--clr-right-12); }
+          &.under { background-color: var(--clr-left-12); }
+        }
+        .strand-13 {
+          &.over { background-color: var(--clr-right-13); }
+          &.under { background-color: var(--clr-left-13); }
+        }
+        .strand-14 {
+          &.over { background-color: var(--clr-right-14); }
+          &.under { background-color: var(--clr-left-14); }
+        }
+        .strand-15 {
+          &.over { background-color: var(--clr-right-15); }
+          &.under { background-color: var(--clr-left-15); }
+        }
+        .strand-16 {
+          &.over { background-color: var(--clr-right-16); }
+          &.under { background-color: var(--clr-left-16); }
+        }
+        .strand-17 {
+          &.over { background-color: var(--clr-right-17); }
+          &.under { background-color: var(--clr-left-17); }
+        }
+        .strand-18 {
+          &.over { background-color: var(--clr-right-18); }
+          &.under { background-color: var(--clr-left-18); }
+        }
+        .strand-19 {
+          &.over { background-color: var(--clr-right-19); }
+          &.under { background-color: var(--clr-left-19); }
+        }
+        .strand-20 {
+          &.over { background-color: var(--clr-right-20); }
+          &.under { background-color: var(--clr-left-20); }
+        }
+        .strand-21 {
+          &.over { background-color: var(--clr-right-21); }
+          &.under { background-color: var(--clr-left-21); }
+        }
+        .strand-22 {
+          &.over { background-color: var(--clr-right-22); }
+          &.under { background-color: var(--clr-left-22); }
+        }
+        .strand-23 {
+          &.over { background-color: var(--clr-right-23); }
+          &.under { background-color: var(--clr-left-23); }
+        }
+        .strand-24 {
+          &.over { background-color: var(--clr-right-24); }
+          &.under { background-color: var(--clr-left-24); }
+        }
+        .strand-25 {
+          &.over { background-color: var(--clr-right-25); }
+          &.under { background-color: var(--clr-left-25); }
+        }
+        .strand-26 {
+          &.over { background-color: var(--clr-right-26); }
+          &.under { background-color: var(--clr-left-26); }
+        }
+        .strand-27 {
+          &.over { background-color: var(--clr-right-27); }
+          &.under { background-color: var(--clr-left-27); }
+        }
+        .strand-28 {
+          &.over { background-color: var(--clr-right-28); }
+          &.under { background-color: var(--clr-left-28); }
+        }
+        .strand-29 {
+          &.over { background-color: var(--clr-right-29); }
+          &.under { background-color: var(--clr-left-29); }
+        }
+        .strand-30 {
+          &.over { background-color: var(--clr-right-30); }
+          &.under { background-color: var(--clr-left-30); }
+        }
+        .strand-31 {
+          &.over { background-color: var(--clr-right-31); }
+          &.under { background-color: var(--clr-left-31); }
+        }
+        .strand-32 {
+          &.over { background-color: var(--clr-right-32); }
+          &.under { background-color: var(--clr-left-32); }
+        }
+
         &:before {
           @extend %flex-center;
           justify-content: flex-end;

@@ -10,6 +10,10 @@
   hr {
     width: 90%;
   }
+  details {
+    @extend .x1;
+    @extend .w12;
+  }
   label {
     @extend .x1;
     @extend .w4;
