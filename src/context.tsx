@@ -1,10 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { MenuAction, useBraidingReducer, Actions } from './reducer';
 import { asString } from './util/funcs';
 
 export type BraidingState = {
-  rows: number,
-  left: number,
   leftClr01: string,
   leftClr02: string,
   leftClr03: string,
@@ -68,14 +66,17 @@ export type BraidingState = {
   rightClr29: string,
   rightClr30: string,
   rightClr31: string,
-  rightClr32: string,
-  leftBase: string,
+  rows: number,
+  left: number,
   right: number,
+  leftBase: string,
   rightBase: string,
+  rightClr32: string,
   pattern: [ string[], string[] ]
 }
 interface BraidingType extends BraidingState {
-  dispatch?: React.Dispatch<MenuAction>
+  dispatch?: React.Dispatch<MenuAction>,
+  styleVariables?: React.CSSProperties,
 }
 export const defaultValue = {
   rows: 32,
@@ -113,40 +114,40 @@ export const defaultValue = {
   leftClr30: '#333333',
   leftClr31: '#333333',
   leftClr32: '#333333',
-  rightClr01: '#088',
-  rightClr02: '#088',
-  rightClr03: '#088',
-  rightClr04: '#088',
-  rightClr05: '#088',
-  rightClr06: '#088',
-  rightClr07: '#088',
-  rightClr08: '#088',
-  rightClr09: '#088',
-  rightClr10: '#088',
-  rightClr11: '#088',
-  rightClr12: '#088',
-  rightClr13: '#088',
-  rightClr14: '#088',
-  rightClr15: '#088',
-  rightClr16: '#088',
-  rightClr17: '#088',
-  rightClr18: '#088',
-  rightClr19: '#088',
-  rightClr20: '#088',
-  rightClr21: '#088',
-  rightClr22: '#088',
-  rightClr23: '#088',
-  rightClr24: '#088',
-  rightClr25: '#088',
-  rightClr26: '#088',
-  rightClr27: '#088',
-  rightClr28: '#088',
-  rightClr29: '#088',
-  rightClr30: '#088',
-  rightClr31: '#088',
-  rightClr32: '#088',
-  leftBase: 'u o',
-  rightBase: 'u o',
+  rightClr01: '#6900d1',
+  rightClr02: '#6900d1',
+  rightClr03: '#6900d1',
+  rightClr04: '#6900d1',
+  rightClr05: '#6900d1',
+  rightClr06: '#6900d1',
+  rightClr07: '#6900d1',
+  rightClr08: '#6900d1',
+  rightClr09: '#6900d1',
+  rightClr10: '#6900d1',
+  rightClr11: '#6900d1',
+  rightClr12: '#6900d1',
+  rightClr13: '#6900d1',
+  rightClr14: '#6900d1',
+  rightClr15: '#6900d1',
+  rightClr16: '#6900d1',
+  rightClr17: '#6900d1',
+  rightClr18: '#6900d1',
+  rightClr19: '#6900d1',
+  rightClr20: '#6900d1',
+  rightClr21: '#6900d1',
+  rightClr22: '#6900d1',
+  rightClr23: '#6900d1',
+  rightClr24: '#6900d1',
+  rightClr25: '#6900d1',
+  rightClr26: '#6900d1',
+  rightClr27: '#6900d1',
+  rightClr28: '#6900d1',
+  rightClr29: '#6900d1',
+  rightClr30: '#6900d1',
+  rightClr31: '#6900d1',
+  rightClr32: '#6900d1',
+  leftBase: 'u8',
+  rightBase: 'u8',
   pattern: [[], []]
 } as BraidingType;
 const BraidingContext = React.createContext(defaultValue);
@@ -183,13 +184,33 @@ const dehashifyState = (dispatch: Function) => {
 export const BraidingProvider: React.FC<{ children: any }> = ({ children }) => {
   const [ value, dispatch ] = useBraidingReducer(defaultValue);
 
+  const styleVariables = useMemo(() => {
+    const {
+      left, right,
+      leftClr01, leftClr02, leftClr03, leftClr04, leftClr05, leftClr06, leftClr07, leftClr08, leftClr09, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
+      rightClr01, rightClr02, rightClr03, rightClr04, rightClr05, rightClr06, rightClr07, rightClr08, rightClr09, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32,
+    } = value;
+    const lefts = [
+      leftClr01, leftClr02, leftClr03, leftClr04, leftClr05, leftClr06, leftClr07, leftClr08, leftClr09, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32
+    ];
+    const rights = [
+      rightClr01, rightClr02, rightClr03, rightClr04, rightClr05, rightClr06, rightClr07, rightClr08, rightClr09, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32
+    ];
+    const defs = {};
+    for (let i = 0; i < 32; i++) {
+      defs[`--clr-left-${(i + 1).toString().padStart(2, '0')}`] = lefts[i % left];
+      defs[`--clr-right-${(i + 1).toString().padStart(2, '0')}`] = rights[i % right];
+    }
+    return defs as React.CSSProperties;
+  }, [value]);
+
   React.useEffect(() => {
-    dehashifyState(dispatch);
-    // dispatch({ type: Actions.initialzePattern });
+    // dehashifyState(dispatch);
+    dispatch({ type: Actions.initialzePattern });
   }, []);
 
   return (
-    <BraidingContext.Provider value={{ ...value, dispatch }} >
+    <BraidingContext.Provider value={{ ...value, styleVariables, dispatch }} >
       { children }
     </BraidingContext.Provider>
   );

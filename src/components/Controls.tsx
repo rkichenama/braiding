@@ -1,17 +1,17 @@
 import React, { ChangeEvent } from 'react';
 import BraidingContext, { defaultValue } from '../context';
 import { Actions } from '../reducer';
-import { compressPattern, decompressPattern } from '../util/funcs';
+import { compressPattern, decompressPattern, decPattern, encPattern } from '../util/funcs';
 
 import './Controls.scss';
 
 const Controls: React.FC<any> = () => {
+  const {dispatch, ...state} = React.useContext(BraidingContext);
   const {
-    dispatch,
     rows, left, right, leftBase, rightBase, pattern,
     leftClr01, leftClr02, leftClr03, leftClr04, leftClr05, leftClr06, leftClr07, leftClr08, leftClr09, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
     rightClr01, rightClr02, rightClr03, rightClr04, rightClr05, rightClr06, rightClr07, rightClr08, rightClr09, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32,
-  } = React.useContext(BraidingContext);
+  } = state;
   const importEl = React.useRef(undefined as HTMLTextAreaElement);
   const clrsLeft = [leftClr01, leftClr02, leftClr03, leftClr04, leftClr05, leftClr06, leftClr07, leftClr08, leftClr09, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32];
   const clrsRight = [rightClr01, rightClr02, rightClr03, rightClr04, rightClr05, rightClr06, rightClr07, rightClr08, rightClr09, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32];
@@ -31,11 +31,12 @@ const Controls: React.FC<any> = () => {
       const str = textarea.value.trim();
       if (str.length) {
         try {
-          const { rows, left, right, leftClr, rightClr, pattern } = decompressPattern(str);
-          // dispatch({ type: Actions.replaceState, payload: {
-          //   ...defaultValue,
-          //   rows, left, right, leftClr, rightClr, pattern
-          // }});
+          const decoded = decPattern(str);
+          console.log({decoded})
+          dispatch({ type: Actions.replaceState, payload: {
+            ...defaultValue,
+            ...decoded
+          }});
         } catch (error) {
           console.log(error);
         }
@@ -115,11 +116,11 @@ const Controls: React.FC<any> = () => {
             (evt.target.value.length >= 1) && changeRows('rightBase')(evt)
           }} />
       </div>
-      {/* <hr className='w12' />
+      <hr className='w12' />
       <div className='row'>
         <label className='full'>Current Pattern</label>
         <textarea rows={5} readOnly value={
-          compressPattern(rows, left, right, leftClr01, rightClr01, pattern)
+          encPattern(state)
         } onChange={() => {}}/>
       </div>
       <hr className='w12' />
@@ -128,7 +129,7 @@ const Controls: React.FC<any> = () => {
         <button className='full'
           onClick={performImport}
         >Import Pattern</button>
-      </div> */}
+      </div>
     </div>
   );
 }

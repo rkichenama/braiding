@@ -1,6 +1,7 @@
 @import '../styles/layout';
 
 #controls {
+  overflow-y: auto;
 
   .row {
     background-color: rgba(0, 0, 0, 0.2);
@@ -13,6 +14,7 @@
   details {
     @extend .x1;
     @extend .w12;
+    counter-reset: clrs;
   }
   label {
     @extend .x1;
@@ -32,16 +34,33 @@
   }
 
   input[type="color"] {
-    -webkit-appearance: none;
+    position: relative;
     border: 0;
     width: 32px;
     height: 32px;
     margin: 0 auto;
+    cursor: pointer;
     &::-webkit-color-swatch-wrapper {
       padding: 0;
     }
     &::-webkit-color-swatch {
       border: 0;
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      right: 2px;
+      counter-increment: clrs;
+      content: counters(clrs, "", decimal);
+      font-size: 0.75em;
+      color: white;
+      text-shadow:
+        1px 1px 1px black,
+        1px -1px 1px black,
+        -1px -1px 1px black,
+        -1px 1px 1px black
+      ;
     }
   }
   input[type="range"] {
