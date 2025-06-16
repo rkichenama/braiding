@@ -53,25 +53,109 @@
 
         @for $i from 1 through 9 {
           &.row-#{$i} {
-            background-color: var(--clr-right-0#{$i});
+            background-color: var(--clr-right-#{$i});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
         @for $i from 10 through 32 {
           &.row-#{$i} {
             background-color: var(--clr-right-#{$i});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
         @for $i from 33 through 41 {
           &.row-#{$i} {
-            background-color: var(--clr-right-0#{$i - 32});
+            background-color: var(--clr-right-#{$i - 32});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
         @for $i from 42 through 60 {
           &.row-#{$i} {
             background-color: var(--clr-right-#{$i - 32});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-left-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
-
+/*
         .strand-01 {
           &.over { background-color: var(--clr-left-01); }
           &.under { background-color: transparent; }
@@ -200,7 +284,7 @@
           &.over { background-color: var(--clr-left-32); }
           &.under { background-color: transparent; }
         }
-
+*/
         &:after {
           @extend %flex-center;
           justify-content: flex-start;
@@ -221,26 +305,26 @@
 
         @for $i from 1 through 9 {
           &.row-#{$i} {
-            background-color: var(--clr-left-0#{$i});
+            background-color: var(--clr-left-#{$i});
 
             @for $j from 1 through 9 {
-              .strand-0#{$j}.over {
-                background-color: var(--clr-right-0#{($i % 32) + $j});
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
               }
             }
             @for $j from 10 through 32 {
               .strand-#{$j}.over {
-                background-color: var(--clr-right-#{$j});
+                background-color: var(--clr-right-#{($i % 32) + $j});
               }
             }
             @for $j from 33 through 41 {
               .strand-#{$j}.over {
-                background-color: var(--clr-right-0#{$j - 32});
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
               }
             }
             @for $j from 42 through 60 {
               .strand-#{$j}.over {
-                background-color: var(--clr-right-#{$j - 32});
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
               }
             }
           }
@@ -248,16 +332,79 @@
         @for $i from 10 through 32 {
           &.row-#{$i} {
             background-color: var(--clr-left-#{$i});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
         @for $i from 33 through 41 {
           &.row-#{$i} {
-            background-color: var(--clr-left-0#{$i - 32});
+            background-color: var(--clr-left-#{$i - 32});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
         @for $i from 42 through 60 {
           &.row-#{$i} {
             background-color: var(--clr-left-#{$i - 32});
+
+            @for $j from 1 through 9 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 10 through 32 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j});
+              }
+            }
+            @for $j from 33 through 41 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
+              }
+            }
+            @for $j from 42 through 60 {
+              .strand-#{$j}.over {
+                background-color: var(--clr-right-#{($i % 32) + $j - 32});
+              }
+            }
           }
         }
 /*

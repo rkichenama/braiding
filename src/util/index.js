@@ -407,7 +407,6 @@ const Controls = connect(
     if (str.length) {
       try {
         const { left, right, leftClr, rightClr, pattern } = decompressPattern(str);
-        console.log(left, right, pattern)
         changeStrands('left', left);
         changeStrands('right', right);
         changeColors('left', leftClr);

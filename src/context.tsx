@@ -3,15 +3,15 @@ import { MenuAction, useBraidingReducer, Actions } from './reducer';
 import { asString } from './util/funcs';
 
 export type BraidingState = {
-  leftClr01: string,
-  leftClr02: string,
-  leftClr03: string,
-  leftClr04: string,
-  leftClr05: string,
-  leftClr06: string,
-  leftClr07: string,
-  leftClr08: string,
-  leftClr09: string,
+  leftClr1: string,
+  leftClr2: string,
+  leftClr3: string,
+  leftClr4: string,
+  leftClr5: string,
+  leftClr6: string,
+  leftClr7: string,
+  leftClr8: string,
+  leftClr9: string,
   leftClr10: string,
   leftClr11: string,
   leftClr12: string,
@@ -35,15 +35,15 @@ export type BraidingState = {
   leftClr30: string,
   leftClr31: string,
   leftClr32: string,
-  rightClr01: string,
-  rightClr02: string,
-  rightClr03: string,
-  rightClr04: string,
-  rightClr05: string,
-  rightClr06: string,
-  rightClr07: string,
-  rightClr08: string,
-  rightClr09: string,
+  rightClr1: string,
+  rightClr2: string,
+  rightClr3: string,
+  rightClr4: string,
+  rightClr5: string,
+  rightClr6: string,
+  rightClr7: string,
+  rightClr8: string,
+  rightClr9: string,
   rightClr10: string,
   rightClr11: string,
   rightClr12: string,
@@ -82,15 +82,15 @@ export const defaultValue = {
   rows: 32,
   left: 8,
   right: 8,
-  leftClr01: '#333333',
-  leftClr02: '#333333',
-  leftClr03: '#333333',
-  leftClr04: '#333333',
-  leftClr05: '#333333',
-  leftClr06: '#333333',
-  leftClr07: '#333333',
-  leftClr08: '#333333',
-  leftClr09: '#333333',
+  leftClr1: '#333333',
+  leftClr2: '#333333',
+  leftClr3: '#333333',
+  leftClr4: '#333333',
+  leftClr5: '#333333',
+  leftClr6: '#333333',
+  leftClr7: '#333333',
+  leftClr8: '#333333',
+  leftClr9: '#333333',
   leftClr10: '#333333',
   leftClr11: '#333333',
   leftClr12: '#333333',
@@ -114,15 +114,15 @@ export const defaultValue = {
   leftClr30: '#333333',
   leftClr31: '#333333',
   leftClr32: '#333333',
-  rightClr01: '#6900d1',
-  rightClr02: '#6900d1',
-  rightClr03: '#6900d1',
-  rightClr04: '#6900d1',
-  rightClr05: '#6900d1',
-  rightClr06: '#6900d1',
-  rightClr07: '#6900d1',
-  rightClr08: '#6900d1',
-  rightClr09: '#6900d1',
+  rightClr1: '#6900d1',
+  rightClr2: '#6900d1',
+  rightClr3: '#6900d1',
+  rightClr4: '#6900d1',
+  rightClr5: '#6900d1',
+  rightClr6: '#6900d1',
+  rightClr7: '#6900d1',
+  rightClr8: '#6900d1',
+  rightClr9: '#6900d1',
   rightClr10: '#6900d1',
   rightClr11: '#6900d1',
   rightClr12: '#6900d1',
@@ -187,19 +187,19 @@ export const BraidingProvider: React.FC<{ children: any }> = ({ children }) => {
   const styleVariables = useMemo(() => {
     const {
       left, right,
-      leftClr01, leftClr02, leftClr03, leftClr04, leftClr05, leftClr06, leftClr07, leftClr08, leftClr09, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
-      rightClr01, rightClr02, rightClr03, rightClr04, rightClr05, rightClr06, rightClr07, rightClr08, rightClr09, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32,
+      leftClr1, leftClr2, leftClr3, leftClr4, leftClr5, leftClr6, leftClr7, leftClr8, leftClr9, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
+      rightClr1, rightClr2, rightClr3, rightClr4, rightClr5, rightClr6, rightClr7, rightClr8, rightClr9, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32,
     } = value;
     const lefts = [
-      leftClr01, leftClr02, leftClr03, leftClr04, leftClr05, leftClr06, leftClr07, leftClr08, leftClr09, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32
+      leftClr1, leftClr2, leftClr3, leftClr4, leftClr5, leftClr6, leftClr7, leftClr8, leftClr9, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32
     ];
     const rights = [
-      rightClr01, rightClr02, rightClr03, rightClr04, rightClr05, rightClr06, rightClr07, rightClr08, rightClr09, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32
+      rightClr1, rightClr2, rightClr3, rightClr4, rightClr5, rightClr6, rightClr7, rightClr8, rightClr9, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32
     ];
     const defs = {};
     for (let i = 0; i < 32; i++) {
-      defs[`--clr-left-${(i + 1).toString().padStart(2, '0')}`] = lefts[i % left];
-      defs[`--clr-right-${(i + 1).toString().padStart(2, '0')}`] = rights[i % right];
+      defs[`--clr-left-${(i + 1).toString()}`] = lefts[i % left];
+      defs[`--clr-right-${(i + 1).toString()}`] = rights[i % right];
     }
     return defs as React.CSSProperties;
   }, [value]);

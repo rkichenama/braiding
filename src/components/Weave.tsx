@@ -34,7 +34,7 @@ const withContext = (WrappedComponent: any): any => (
 const Nub: React.FC<any> = ({ onClick = () => {}, isOver, x }) => {
   return (
     <div
-      className={`nub strand-${(x + 1).toString().padStart(2, '0')} ${isOver ? 'over' : 'under'}`}
+      className={`nub strand-${(x + 1).toString()} ${isOver ? 'over' : 'under'}`}
       {...{onClick}}
     />
   );
