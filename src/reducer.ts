@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { BraidingState, defaultValue } from './context';
-import { asValue, asWord, newArr } from './util/funcs';
+import { asValue, asWord, basify, newArr } from './util/funcs';
 
 export type MenuAction = {
   type: string,
@@ -12,9 +12,9 @@ type ReducerType = (state: BraidingState, action: MenuAction) => BraidingState;
 const hashifyState = (state: BraidingState) => {
   const { rows, leftBase, rightBase, left, right } = state;
   location.hash = `#${rows}/${left}/${right}/${
-    asValue(leftBase).map(v => Number(v)).join('')
+    basify(asValue(leftBase))
   }/${
-    asValue(rightBase).map(v => Number(v)).join('')
+    basify(asValue(rightBase))
   }`;
   return state;
 };

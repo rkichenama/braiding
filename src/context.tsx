@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { MenuAction, useBraidingReducer, Actions } from './reducer';
-import { asString } from './util/funcs';
+import { decBase } from './util/funcs';
+
 
 export type BraidingState = {
   leftClr1: string,
@@ -146,8 +147,8 @@ export const defaultValue = {
   rightClr30: '#6900d1',
   rightClr31: '#6900d1',
   rightClr32: '#6900d1',
-  leftBase: 'u8',
-  rightBase: 'u8',
+  leftBase: 'u4 o4',
+  rightBase: 'u4 o4',
   pattern: [[], []]
 } as BraidingType;
 const BraidingContext = React.createContext(defaultValue);
@@ -157,21 +158,21 @@ export default BraidingContext;
 const dehashifyState = (dispatch: Function) => {
   let fromHash = {};
   try {
-    // if (location.hash.length > 1) {
-    //   const [
-    //     rows, left, right, leftClr, rightClr, leftBaseBin, rightBaseBin
-    //   ] = location.hash.slice(1).split('/');
-    //   fromHash = {
-    //     rows: Number(rows),
-    //     left: Number(left),
-    //     right: Number(right),
-    //     leftClr: `#${leftClr}`,
-    //     rightClr: `#${rightClr}`,
-    //     leftBase: asString(leftBaseBin),
-    //     rightBase: asString(rightBaseBin),
-    //     pattern: [[], []]
-    //   };
-    // }
+    if (location.hash.length > 1) {
+      const [
+        rows, l, r, leftBaseBin, rightBaseBin
+      ] = location.hash.slice(1).split('/');
+      const left = Number(l);
+      const right = Number(r);
+      fromHash = {
+        rows: Number(rows),
+        left,
+        right,
+        leftBase: decBase(leftBaseBin, left),
+        rightBase: decBase(rightBaseBin, right),
+        pattern: [[], []]
+      };
+    }
   } catch (err) {
     // todo
   } finally {
@@ -205,7 +206,7 @@ export const BraidingProvider: React.FC<{ children: any }> = ({ children }) => {
   }, [value]);
 
   React.useEffect(() => {
-    // dehashifyState(dispatch);
+    dehashifyState(dispatch);
     dispatch({ type: Actions.initialzePattern });
   }, []);
 

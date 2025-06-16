@@ -133,13 +133,13 @@ const [
   '--clr-right-32',
 ].map(v => styles.getPropertyValue(v).trim());
 export const defaultState = {
-  left: 8,
-  leftBasePattern: 'u2 o2',
   leftClr1, leftClr2, leftClr3, leftClr4, leftClr5, leftClr6, leftClr7, leftClr8, leftClr9, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
   rightClr1, rightClr2, rightClr3, rightClr4, rightClr5, rightClr6, rightClr7, rightClr8, rightClr9, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32,
+  left: 8,
   right: 8,
-  rightBasePattern: 'u2 o2',
   rows: 40,
+  leftBasePattern: 'u2 o2',
+  rightBasePattern: 'u2 o2',
 };
 
 const CHANGE_ROWS = 'CHANGE_ROWS';
