@@ -2,19 +2,28 @@ import { BraidingState } from '../context';
 
 export const newArr = <T>(n: number, v: T): T[] => (new Array(n)).fill(v);
 export const asWord = (isOver: any) => (isOver && 'o') || 'u';
-export const asValue = (word: string): boolean[] => {
+export const asValue = (word: string, len?: number): boolean[] => {
+  let value: boolean[];
   word = word.trim();
   if (word.includes(' ')) {
-    return [].concat(...word.split(' ').map(asValue));
+    value = [].concat(...word.split(' ').map((w) => asValue(w)));
+  } else {
+    let n = 1;
+    let isOver = true;
+    try {
+      const [ matchedNum ] = (word.match(/\d+/) || []);
+      n = Number(matchedNum || 1);
+      isOver = /^o/.test(word);
+    } catch (error) { /* */ }
+    value = newArr(n, isOver);
   }
-  let n = 1;
-  let isOver = true;
-  try {
-    const [ matchedNum ] = (word.match(/\d+/) || []);
-    n = Number(matchedNum || 1);
-    isOver = /^o/.test(word);
-  } catch (error) { /* */ }
-  return newArr(n, isOver);
+  if (len) {
+    while (value.length < len) {
+      value.push(...value);
+    }
+    value = value.slice(0, len);
+  }
+  return value;
 };
 export const asString = (bin: boolean[]) => {
   const overUnders = bin.map(asWord);
@@ -54,7 +63,8 @@ export const deBasify = (side: string, len: number) => parseInt(side, nBase)
   .padStart(len, '0')
   .split('')
   .map(nub => nub != '0');
-export const encBase = (base: string) => basify(asValue(base));
+export const encBase = (base: string, len: number) => basify(asValue(base, len));
+export const decBase = (base: string, len: number) => asString(deBasify(base, len));
 export function encPattern({ rows, left, right, leftBase, rightBase, pattern, ...meta }: BraidingState) {
   const {
     leftClr1, leftClr2, leftClr3, leftClr4, leftClr5, leftClr6, leftClr7, leftClr8, leftClr9, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
@@ -64,8 +74,8 @@ export function encPattern({ rows, left, right, leftBase, rightBase, pattern, ..
   const clrsRight = [rightClr1, rightClr2, rightClr3, rightClr4, rightClr5, rightClr6, rightClr7, rightClr8, rightClr9, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32];
   return [
     rows, left, right,
-    encBase(leftBase),
-    encBase(rightBase),
+    encBase(leftBase, left),
+    encBase(rightBase, right),
     clrsLeft.slice(0, left).join(';'),
     clrsRight.slice(0, right).join(';'),
     (pattern as unknown as boolean[][][]).map(
@@ -94,7 +104,6 @@ export const decompressPattern = (str: string) => {
       )
   }
 };
-export const decBase = (base: string, len: number) => asString(deBasify(base, len));
 export function decPattern(str: string) {
   const [ rows, left, right, leftBase, rightBase, leftClrs, rightClrs, patternStr ] = str.split(',');
   const len = [ Number(left), Number(right) ];
@@ -108,7 +117,7 @@ export function decPattern(str: string) {
     })) as any[];
   const val = {
     rows,
-    left, right,
+    left: len[0], right: len[1],
     leftBase: decBase(leftBase, len[0]),
     rightBase: decBase(rightBase, len[1]),
     ...Object.assign({}, ...ll),

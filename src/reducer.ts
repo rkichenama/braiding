@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 import { BraidingState, defaultValue } from './context';
-import { asValue, asWord, basify, newArr } from './util/funcs';
+import { asValue, encBase, newArr } from './util/funcs';
 
 export type MenuAction = {
   type: string,
@@ -12,9 +12,9 @@ type ReducerType = (state: BraidingState, action: MenuAction) => BraidingState;
 const hashifyState = (state: BraidingState) => {
   const { rows, leftBase, rightBase, left, right } = state;
   location.hash = `#${rows}/${left}/${right}/${
-    basify(asValue(leftBase))
+    encBase(leftBase, left)
   }/${
-    basify(asValue(rightBase))
+    encBase(rightBase, right)
   }`;
   return state;
 };
@@ -25,18 +25,19 @@ export const Actions = {
   replaceState: 'replaceState'
 };
 export function patternToMatrix(rows: number, left: number, right: number, lBase: string, rBase: string) {
-  const [ leftBase, rightBase ] = [lBase, rBase].map(base => asValue(base));
-  return newArr(rows, false)
+  const [ leftBase, rightBase ] = [asValue(lBase, left), asValue(rBase, right)];
+  const v = newArr(rows, false)
     .map(_ => ([
       newArr(left, true).map((_, i) => leftBase[i % leftBase.length]),
       newArr(right, true).map((_, i) => rightBase[i % rightBase.length])
     ]));
+  console.warn({left, right, leftBase, rightBase, v, b:newArr(left, true).map((_, i) => leftBase[i % leftBase.length])})
+  return v;
 }
 const Mutations = {
   [Actions.replaceState]: (_, { payload }) => payload as BraidingState,
   [Actions.changeInputs]: (state, { payload }) => {
     const newState = { ...state, ...payload };
-    // window.setTimeout(() => state.dispatch({ type: Actions.initialzePattern }), 200);
     return Mutations[Actions.initialzePattern](newState);
   },
   [Actions.initialzePattern]: (state, { payload } = { payload: {} }) => {

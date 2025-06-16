@@ -1,7 +1,7 @@
 import React from 'react';
 import BraidingContext from '../context';
 import { Actions } from '../reducer';
-import { asValue, asWord, newArr } from '../util/funcs';
+import { asWord } from '../util/funcs';
 
 import './Weave.scss';
 
@@ -18,9 +18,6 @@ const calcPass = (track, reverse?: boolean) => {
   });
   if (reverse) { direc = direc.reverse() }
   return direc.map(({ dir, count }) => `${dir}${count}`).join(' ').replace(/1/g, '');
-};
-const initializeRow = pattern => {
-  return [].concat(...pattern.split(' ').map(asValue));
 };
 const withContext = (WrappedComponent: any): any => (
   (props: any) => {
