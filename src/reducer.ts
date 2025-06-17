@@ -31,7 +31,6 @@ export function patternToMatrix(rows: number, left: number, right: number, lBase
       newArr(left, true).map((_, i) => leftBase[i % leftBase.length]),
       newArr(right, true).map((_, i) => rightBase[i % rightBase.length])
     ]));
-  console.warn({left, right, leftBase, rightBase, v, b:newArr(left, true).map((_, i) => leftBase[i % leftBase.length])})
   return v;
 }
 const Mutations = {
