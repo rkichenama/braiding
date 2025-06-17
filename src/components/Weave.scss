@@ -21,6 +21,8 @@
       outline: 1px solid gray;
       outline-offset: -1px;
       cursor: pointer;
+      transition: background-color 0.4s ease-in;
+      transition-behavior: allow-discrete;
 
       &:hover {
         outline-color: white;
@@ -35,7 +37,7 @@
       // padding: 2px 1px;
       justify-content: stretch;
       align-items: stretch;
-      background-color: #131313;
+      // background-color: #131313;
       // height: 28px;
 
       > div {
@@ -44,9 +46,9 @@
         @extend %flex-center;
         font-size: 14px;
 
-        & + div {
-          // margin: 0 1px;
-        }
+        // & + div {
+        //   // margin: 0 1px;
+        // }
       }
 
       &.right-hand {
