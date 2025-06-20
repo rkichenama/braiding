@@ -1,0 +1,110 @@
+.color-select {
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+
+  &[name] span::before {
+    position: absolute;
+    top: 0;
+    right: 2px;
+    counter-increment: clrs;
+    content: counters(clrs, "", decimal);
+    font-size: 0.75em;
+    color: white;
+    text-shadow:
+      1px 1px 1px black,
+      1px -1px 1px black,
+      -1px -1px 1px black,
+      -1px 1px 1px black
+    ;
+  }
+
+  span {
+    position: relative;
+    display: inline-block;
+    width: 2rem;
+    aspect-ratio: 1;
+    border: 1px solid white;
+    background-color: var(--selectedColor, #000000);
+    transition: background-color 0.4s;
+    cursor: pointer;
+  }
+
+  [popover] {
+    grid-template-columns: 1fr;
+    grid-gap: 6px 0;
+    width: 16ch;
+    background-color: #131313;
+    color: #ffffff;
+    position: absolute;
+    inset: auto;
+    top: anchor(bottom);
+    left: anchor(left);
+    margin: 0;
+    height: 0;
+    border: 1px solid;
+    transition: display 0.4s, height 0.4s;
+    transition-behavior: allow-discrete;
+
+    &:popover-open {
+      display: grid;
+      height: auto;
+
+      @starting-style {
+        height: 0;
+      }
+    }
+
+    select,
+    ::picker(select) {
+      appearance: base-select;
+    }
+
+    ::picker(select) {
+      background-color: #000000;
+      color: white;
+    }
+
+    select {
+      &::picker-icon {
+        color: #999;
+        transition: 0.4s rotate;
+      }
+      &:open::picker-icon {
+        rotate: 180deg;
+      }
+
+      optgroup {
+        font-style: normal;
+        font-weight: bold;
+        color: #acacac;
+        // text-shadow: 0 0 3px white, 0 0 2px white, 0 0 1px white;
+
+        option {
+          padding-left: 20px;
+          color: #ffffff;
+
+          &::checkmark {
+            color: var(--selectedColor, white);
+            content: '█';
+          }
+
+          &:checked {
+            font-weight: bold;
+            color: var(--selectedColor, white);
+          }
+        }
+      }
+    }
+
+    div:has(input) {
+      display: flex;
+      align-items: center;
+
+      input {
+        margin: 0 !important;
+        outline: 1px dotted gray;
+      }
+    }
+  }
+}

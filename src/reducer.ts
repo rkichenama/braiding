@@ -22,7 +22,8 @@ export const Actions = {
   changeInputs: 'changeInputs',
   initialzePattern: 'initPattern',
   toggleOver: 'toggleOver',
-  replaceState: 'replaceState'
+  replaceState: 'replaceState',
+  changeColors: 'changeColors',
 };
 export function patternToMatrix(rows: number, left: number, right: number, lBase: string, rBase: string) {
   const [ leftBase, rightBase ] = [asValue(lBase, left), asValue(rBase, right)];
@@ -61,6 +62,33 @@ const Mutations = {
         )
       )
     };
+  },
+  [Actions.changeColors]: (state, { payload }) => {
+    const { hand, color } = payload;
+    let strands: string | number[] = payload.strands;
+    if (
+      /^(left|right)$/i.test(hand) &&
+      (Array.isArray(strands) || /^(all|even|odd)$/i.test(strands))
+    ) {
+      const newColors = {} as Partial<BraidingState>;
+      if (!Array.isArray(strands)) {
+        const s = (strands as string);
+        strands = /^all$/i.test(s)
+          ? newArr(32, 0).map((_, i) => (i + 1))
+          : newArr(16, 0).map((_, i) => (
+            /^even$/.test(s) ? ((i * 2) + 2) : ((i * 2) + 1)
+          ))
+      }
+      (strands as number[]).forEach((strand) => {
+        newColors[`${hand}Clr${strand}`] = color;
+      });
+
+      return {
+        ...state,
+        ...newColors,
+      };
+    }
+    return state;
   }
 }
 

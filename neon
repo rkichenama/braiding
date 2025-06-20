@@ -10,3 +10,59 @@ neon
 60,8,8,f,f,#39FF14;#E0E722;#E0E722;#E0E722;#E0E722;#39FF14;#39FF14;#39FF14,#d1008f;#d1008f;#d1008f;#d1008f;#09EAE1;#09EAE1;#09EAE1;#09EAE1,f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f;f|f
 
 #FF5F1F
+
+60,8,8,2d,2d,#333333;#333333;#333333;#333333;#333333;#333333;#333333;#333333,#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1,2d|2d;2d|2d;2d|2d;2d|2d;2e|2c;2h|2b;2u|25;4c|1e;1z|5j;4u|35;s|4i;5j|5j;4u|35;g|4i;6i|67;0|16;4r|73;6|4p;58|6q;1z|3r;4u|35;s|4i;5j|5j;4s|35;j|4m;5p|61;1h|2t;5x|45;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d
+
+
+60,8,8,2d,2d,#333333;#333333;#333333;#333333;#333333;#333333;#333333;#333333,#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1,2d|2d;2d|2d;2d|2d;2d|2d;2e|2c;2h|2b;2u|25;4c|1e;1z|5j;4q|35;s|4q;5j|5j;4u|35;g|4i;6i|67;0|16;4r|73;6|4p;58|6q;1z|3r;4q|35;s|4q;5j|5j;4s|35;i|4m;5l|63;11|31;44|51;2a|5y;21|2j;12|31;4c|4y;1z|5j;4q|35;s|4q;5j|5j;4u|35;g|4i;6i|67;0|16;4r|73;6|4p;58|6q;1z|3r;4q|35;s|4q;5j|5j;4s|35;j|4m;5p|61;1j|2v;5r|4f;f|27;f|f;f|f;f|f;f|f;f|f;f|f;f|f;2d|2d
+
+60,8,8,2d,2d,#333333;#333333;#333333;#333333;#333333;#333333;#333333;#333333,#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1,2d|2d;2d|2d;2d|2d;2d|2c;2m|2d;29|1u;6j|2n;g|y;57|6v;1|16;56|3b;h|4i;4r|3j;g|y;57|6v;1|16;56|3b;h|4i;4v|3h;l|x;6t|5x;2d|l;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d
+
+60,8,8,2d,2d,#333333;#333333;#333333;#333333;#333333;#333333;#333333;#333333,#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1;#6900d1,2d|2d;2d|2d;2d|2d;2d|2c;2m|2d;29|1u;6j|2n;h|y;57|6v;h|y;57|3b;h|y;57|3b;h|y;57|3b;h|y;56|3b;h|y;4v|3h;l|x;6t|5x;2d|l;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d;2d|2d
+
+html paracord colors approx
+burgundy #523334
+deepRed #9a1722
+imperialRed #cc2a3a
+scarlett #d93d3d
+fuchsia #e25677
+hotPink #f6579f
+rosePink #e2bbc3
+burntOrange #cf6f40
+solarOrange #dd8b47
+safetyOrange #ee5806
+neonOrange #fe9b50
+goldenrod #e2b007
+mustardYellow #ddc833
+canaryYellow #e2d340
+darkOliveDrab #5a583a
+oliveDrab #727644
+emeraldGreen #465b48
+hunterGreen #46864a
+kellyGreen #6fb26e
+neonGreen #a4de54
+turquoise #9ccfcc
+teal #5b8683
+navyBlue #222f5a
+electricBlue #0c2aca
+slateBlue #566373
+royalBlue #3860ba
+seaBlue #4f88cb
+colonialBlue #568dcf
+babyBlue #9dc2cc
+acidPurple #51208f
+purple #8462af
+lilac #cabbd2
+lavender #9da0ce
+black #272823
+charcoalGrey #666a60
+silverGray #a9a999
+white #e6e4da
+goldenNugget #bcb46d
+desertSand #c7ba96
+desertTan #c4af7b
+khaki #b2a475
+coytoeBrown #857645
+chocolateBrown #7b6b43
+rust #9e6035
+walnutBrown #7d522c

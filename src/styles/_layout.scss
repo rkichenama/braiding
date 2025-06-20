@@ -115,7 +115,8 @@
     justify-self: flex-end;
   }
 }
-*::-webkit-scrollbar {
+*::-webkit-scrollbar,
+::picker(select)::-webkit-scrollbar {
   height: 6px;
   width: 6px;
   &-button {

@@ -15,6 +15,12 @@
     @extend .x1;
     @extend .w12;
     counter-reset: clrs;
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
   }
   label {
     @extend .x1;
@@ -47,7 +53,7 @@
       border: 0;
     }
 
-    &::before {
+    &[name]::before {
       position: absolute;
       top: 0;
       right: 2px;
