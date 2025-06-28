@@ -101,7 +101,7 @@ button {
   &:before { width: 20%; height: 1px; }
   &:after { width: 1px; height: 20%; }
   &:focus { outline: 1px dotted; }
-  &.active { color: var(--accent, #{$accent}); }
+  &.active { color: var(--accent-clr, #{$accent}); }
 }
 svg {
   fill: white;

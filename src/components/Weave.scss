@@ -52,6 +52,11 @@
         // }
       }
 
+      &.current::before,
+      &.current::after {
+        color: var(--accent-clr);
+      }
+
       &.right-hand {
         position: relative;
         transform-origin: left bottom;
@@ -70,7 +75,7 @@
           }
         }
 
-        &:after {
+        &::after {
           @extend %flex-center;
           justify-content: flex-start;
           content: attr(data-dir);
@@ -100,7 +105,7 @@
           }
         }
 
-        &:before {
+        &::before {
           @extend %flex-center;
           justify-content: flex-end;
           content: attr(data-dir);
@@ -113,10 +118,10 @@
         }
       }
 
-      .over:hover:before {
+      .over:hover::before {
         content: "O"
       }
-      .under:hover:before {
+      .under:hover::before {
         content: "U"
       }
     }

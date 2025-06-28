@@ -105,29 +105,33 @@ export const decompressPattern = (str: string) => {
   }
 };
 export function decPattern(str: string) {
-  const [ rows, left, right, leftBase, rightBase, leftClrs, rightClrs, patternStr ] = str.split(',');
-  const len = [ Number(left), Number(right) ];
-  const ll = leftClrs.split(';')
-    .map((clr, i) => ({
-      [`leftClr${(i + 1).toString()}`]: clr,
-    })) as any[];
-  const rr = rightClrs.split(';')
-    .map((clr, i) => ({
-      [`rightClr${(i + 1).toString()}`]: clr,
-    })) as any[];
-  const val = {
-    rows,
-    left: len[0], right: len[1],
-    leftBase: decBase(leftBase, len[0]),
-    rightBase: decBase(rightBase, len[1]),
-    ...Object.assign({}, ...ll),
-    ...Object.assign({}, ...rr),
-    pattern: patternStr
-      .split(';')
-      .map(row => row
-        .split('|')
-        .map((side, i)=> deBasify(side, len[i]))
-      )
-  };
-  return val;
+  try {
+    const [ rows, left, right, leftBase, rightBase, leftClrs, rightClrs, patternStr ] = str.split(',');
+    const len = [ Number(left), Number(right) ];
+    const ll = leftClrs.split(';')
+      .map((clr, i) => ({
+        [`leftClr${(i + 1).toString()}`]: clr,
+      })) as any[];
+    const rr = rightClrs.split(';')
+      .map((clr, i) => ({
+        [`rightClr${(i + 1).toString()}`]: clr,
+      })) as any[];
+    const val = {
+      rows: Number(rows),
+      left: len[0], right: len[1],
+      leftBase: decBase(leftBase, len[0]),
+      rightBase: decBase(rightBase, len[1]),
+      ...Object.assign({}, ...ll),
+      ...Object.assign({}, ...rr),
+      pattern: patternStr
+        .split(';')
+        .map(row => row
+          .split('|')
+          .map((side, i)=> deBasify(side, len[i]))
+        )
+    };
+    return val;
+  } catch (_err) {
+    return {};
+  }
 }

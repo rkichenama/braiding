@@ -129,9 +129,16 @@
   }
   &-thumb { background: var(--dark-accent, #{$dark-accent}); }
   &-thumb:hover,
-  &-thumb:active { background: var(--accent, #{$accent}); }
+  &-thumb:active { background: var(--accent-clr, #{$accent}); }
   &-track:hover,
   &-track:active,
   &-corner,
   &-track { background: transparent; }
+}
+input[type], select, button {
+  accent-color: var(--dark-accent-clr, #{$dark-accent});
+
+  &:hover {
+    accent-color: var(--accent-clr, #{$accent});
+  }
 }

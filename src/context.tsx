@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react';
 import { MenuAction, useBraidingReducer, Actions } from './reducer';
 import { decBase } from './util/funcs';
+import { deserialize } from './hashify';
 
 
 export type BraidingState = {
@@ -73,7 +74,9 @@ export type BraidingState = {
   leftBase: string,
   rightBase: string,
   rightClr32: string,
-  pattern: [ string[], string[] ]
+  pattern: [ string[], string[] ],
+  weavingStrand: 'left' | 'right',
+  weavingRow: number,
 }
 interface BraidingType extends BraidingState {
   dispatch?: React.Dispatch<MenuAction>,
@@ -83,103 +86,109 @@ export const defaultValue = {
   rows: 32,
   left: 8,
   right: 8,
-  leftClr1: '#333333',
-  leftClr2: '#333333',
-  leftClr3: '#333333',
-  leftClr4: '#333333',
-  leftClr5: '#333333',
-  leftClr6: '#333333',
-  leftClr7: '#333333',
-  leftClr8: '#333333',
-  leftClr9: '#333333',
-  leftClr10: '#333333',
-  leftClr11: '#333333',
-  leftClr12: '#333333',
-  leftClr13: '#333333',
-  leftClr14: '#333333',
-  leftClr15: '#333333',
-  leftClr16: '#333333',
-  leftClr17: '#333333',
-  leftClr18: '#333333',
-  leftClr19: '#333333',
-  leftClr20: '#333333',
-  leftClr21: '#333333',
-  leftClr22: '#333333',
-  leftClr23: '#333333',
-  leftClr24: '#333333',
-  leftClr25: '#333333',
-  leftClr26: '#333333',
-  leftClr27: '#333333',
-  leftClr28: '#333333',
-  leftClr29: '#333333',
-  leftClr30: '#333333',
-  leftClr31: '#333333',
-  leftClr32: '#333333',
-  rightClr1: '#6900d1',
-  rightClr2: '#6900d1',
-  rightClr3: '#6900d1',
-  rightClr4: '#6900d1',
-  rightClr5: '#6900d1',
-  rightClr6: '#6900d1',
-  rightClr7: '#6900d1',
-  rightClr8: '#6900d1',
-  rightClr9: '#6900d1',
-  rightClr10: '#6900d1',
-  rightClr11: '#6900d1',
-  rightClr12: '#6900d1',
-  rightClr13: '#6900d1',
-  rightClr14: '#6900d1',
-  rightClr15: '#6900d1',
-  rightClr16: '#6900d1',
-  rightClr17: '#6900d1',
-  rightClr18: '#6900d1',
-  rightClr19: '#6900d1',
-  rightClr20: '#6900d1',
-  rightClr21: '#6900d1',
-  rightClr22: '#6900d1',
-  rightClr23: '#6900d1',
-  rightClr24: '#6900d1',
-  rightClr25: '#6900d1',
-  rightClr26: '#6900d1',
-  rightClr27: '#6900d1',
-  rightClr28: '#6900d1',
-  rightClr29: '#6900d1',
-  rightClr30: '#6900d1',
-  rightClr31: '#6900d1',
-  rightClr32: '#6900d1',
+  leftClr1: '#272823',
+  leftClr2: '#272823',
+  leftClr3: '#272823',
+  leftClr4: '#272823',
+  leftClr5: '#272823',
+  leftClr6: '#272823',
+  leftClr7: '#272823',
+  leftClr8: '#272823',
+  leftClr9: '#272823',
+  leftClr10: '#272823',
+  leftClr11: '#272823',
+  leftClr12: '#272823',
+  leftClr13: '#272823',
+  leftClr14: '#272823',
+  leftClr15: '#272823',
+  leftClr16: '#272823',
+  leftClr17: '#272823',
+  leftClr18: '#272823',
+  leftClr19: '#272823',
+  leftClr20: '#272823',
+  leftClr21: '#272823',
+  leftClr22: '#272823',
+  leftClr23: '#272823',
+  leftClr24: '#272823',
+  leftClr25: '#272823',
+  leftClr26: '#272823',
+  leftClr27: '#272823',
+  leftClr28: '#272823',
+  leftClr29: '#272823',
+  leftClr30: '#272823',
+  leftClr31: '#272823',
+  leftClr32: '#272823',
+  rightClr1: '#51208f',
+  rightClr2: '#51208f',
+  rightClr3: '#51208f',
+  rightClr4: '#51208f',
+  rightClr5: '#51208f',
+  rightClr6: '#51208f',
+  rightClr7: '#51208f',
+  rightClr8: '#51208f',
+  rightClr9: '#51208f',
+  rightClr10: '#51208f',
+  rightClr11: '#51208f',
+  rightClr12: '#51208f',
+  rightClr13: '#51208f',
+  rightClr14: '#51208f',
+  rightClr15: '#51208f',
+  rightClr16: '#51208f',
+  rightClr17: '#51208f',
+  rightClr18: '#51208f',
+  rightClr19: '#51208f',
+  rightClr20: '#51208f',
+  rightClr21: '#51208f',
+  rightClr22: '#51208f',
+  rightClr23: '#51208f',
+  rightClr24: '#51208f',
+  rightClr25: '#51208f',
+  rightClr26: '#51208f',
+  rightClr27: '#51208f',
+  rightClr28: '#51208f',
+  rightClr29: '#51208f',
+  rightClr30: '#51208f',
+  rightClr31: '#51208f',
+  rightClr32: '#51208f',
   leftBase: 'u4 o4',
   rightBase: 'u4 o4',
-  pattern: [[], []]
+  pattern: [[], []],
+  weavingStrand: 'left',
+  weavingRow: 0,
 } as BraidingType;
 const BraidingContext = React.createContext(defaultValue);
 
 export default BraidingContext;
 
 const dehashifyState = (dispatch: Function) => {
-  let fromHash = {};
-  try {
-    if (location.hash.length > 1) {
-      const [
-        rows, l, r, leftBaseBin, rightBaseBin
-      ] = location.hash.slice(1).split('/');
-      const left = Number(l);
-      const right = Number(r);
-      fromHash = {
-        rows: Number(rows),
-        left,
-        right,
-        leftBase: decBase(leftBaseBin, left),
-        rightBase: decBase(rightBaseBin, right),
-        pattern: [[], []]
-      };
-    }
-  } catch (err) {
-    // todo
-  } finally {
-    dispatch({ type: Actions.initialzePattern, payload: {
-      ...defaultValue, ...fromHash
-    }});
-  }
+  // let fromHash = {};
+  // try {
+  //   if (location.hash.length > 1) {
+  //     const [
+  //       rows, l, r, leftBaseBin, rightBaseBin
+  //     ] = location.hash.slice(1).split('/');
+  //     const left = Number(l);
+  //     const right = Number(r);
+  //     fromHash = {
+  //       rows: Number(rows),
+  //       left,
+  //       right,
+  //       leftBase: decBase(leftBaseBin, left),
+  //       rightBase: decBase(rightBaseBin, right),
+  //       pattern: [[], []]
+  //     };
+  //   }
+  // } catch (err) {
+  //   // todo
+  // } finally {
+  //   dispatch({ type: Actions.initialzePattern, payload: {
+  //     ...defaultValue, ...fromHash
+  //   }});
+  // }
+  dispatch({ type: Actions.initialzePattern, payload: {
+    ...defaultValue,
+    ...deserialize(location.hash)
+  }});
 };
 
 export const BraidingProvider: React.FC<{ children: any }> = ({ children }) => {

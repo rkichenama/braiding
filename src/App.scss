@@ -7,7 +7,7 @@
 .highlighted { color: var(--highlight); }
 .contrastBg { background-color: var(--contrast-screen); }
 
-html {
+:root {
   /* variables */
   --fg-clr: #{$fg-clr};
   --bg-clr: #{$bg-clr};

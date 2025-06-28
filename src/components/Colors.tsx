@@ -19,9 +19,14 @@ const ParacordColors = {
     neonOrange: '#fe9b50',
   },
   Yellows: {
-    goldenrod: '#e2b007',
-    mustardYellow: '#ddc833',
-    canaryYellow: '#e2d340',
+    gold: '#89703c',
+    goldenrod: '#e37f2a',
+    amberGold: '#cf9f64',
+    mustardYellow: '#a6401b',
+    marigold: '#e7a34c',
+    airForce: '#f3b735',
+    canaryYellow: '#b9a447',
+    neonYellow: '#eff123',
   },
   Greens: {
     darkOliveDrab: '#5a583a',
@@ -30,17 +35,20 @@ const ParacordColors = {
     hunterGreen: '#46864a',
     kellyGreen: '#6fb26e',
     neonGreen: '#a4de54',
+    teal: '#0a2e2d',
   },
   Blues: {
-    turquoise: '#9ccfcc',
-    teal: '#5b8683',
+    turquoise: '#349bae',
     navyBlue: '#222f5a',
-    electricBlue: '#0c2aca',
+    electricBlue: '#1525b2',
     slateBlue: '#566373',
-    royalBlue: '#3860ba',
+    royalBlue: '#1f4b9a',
     seaBlue: '#4f88cb',
-    colonialBlue: '#568dcf',
-    babyBlue: '#9dc2cc',
+    colonialBlue: '#0e69b5',
+    lightBlue: '#4c87cb',
+    neonTurquoise: '#0a88ab',
+    seafoam: '#0b9e9d',
+    caribean: '#0d7d99',
   },
   Purples: {
     acidPurple: '#51208f',
@@ -85,7 +93,7 @@ const Colors = ({
       span.setAttribute('style', `anchor-name: ${anchorName}`);
       const p = ref.current.querySelector('dialog');
       // const p = document.createElement('dialog');
-      p.setAttribute('popover', 'true');
+      p.setAttribute('popover', 'auto');
       p.setAttribute('style', `position-anchor: ${anchorName}`);
       // p.innerText = 'I am a popover';
       ref.current.appendChild(p);

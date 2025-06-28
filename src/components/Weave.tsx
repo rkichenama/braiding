@@ -51,12 +51,18 @@ const NubRow: React.FC<any> = ({ className, track = [], loc, setOver }) => (
 </div>
 );
 
-const NubRows: React.FC<any> = withContext(({ dispatch, pattern = [] }) => pattern.map(([ left, right ], i) => (
+const NubRows: React.FC<any> = withContext(({
+  dispatch, weavingRow, weavingStrand, pattern = [],
+}) => pattern.map(([ left, right ], i) => (
   <React.Fragment key={i}>
-    <NubRow className={`row-${i + 1} left-hand`} loc={[ i, 0 ]} track={left} setOver={
+    <NubRow className={`row-${i + 1} left-hand${
+      weavingStrand === 'right' && i === weavingRow ? ' current' : ''
+    }`} loc={[ i, 0 ]} track={left} setOver={
       (row, side, nub, over) => { dispatch({ type: Actions.toggleOver, payload: { row, side, nub, over } }) }
     } />
-    <NubRow className={`row-${i + 1} right-hand`} loc={[ i, 1 ]} track={right} setOver={
+    <NubRow className={`row-${i + 1} right-hand${
+      weavingStrand === 'left' && i === weavingRow ? ' current' : ''
+    }`} loc={[ i, 1 ]} track={right} setOver={
       (row, side, nub, over) => { dispatch({ type: Actions.toggleOver, payload: { row, side, nub, over } }) }
     } />
   </React.Fragment>
