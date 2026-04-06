@@ -30,14 +30,32 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/,
+        exclude: /\.module\.(sa|sc|c)ss$/,
         use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
           {
-            loader: MiniCssExtractPlugin.loader,
+            loader: 'sass-loader',
             options: {
-              esModule: true
+              implementation: require('sass'),
+            },
+          }
+        ],
+      },
+      {
+        test: /\.module\.(sa|sc|c)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: '[name]__[local]--[hash:base64:5]',
+                namedExport: false,
+                exportLocalsConvention: 'camelCase',
+              },
             },
           },
-          'css-loader',
           {
             loader: 'sass-loader',
             options: {

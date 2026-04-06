@@ -2,7 +2,7 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "experimentalDecorators": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "lib": [ "DOM", "ESNext" ],
     "module": "ES2020",
     "moduleResolution": "node",
