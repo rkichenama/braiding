@@ -32,8 +32,10 @@
 }
 
 .weave {
+  --nub-size: 24px;
+
   display: grid;
-  gap: 10px 0px;
+  gap: calc(var(--nub-size) / 2) 2px;
   padding: 20px;
   background-color: transparent;
 }
@@ -87,8 +89,8 @@
 }
 
 .nub {
-  width: 24px;
-  height: 24px;
+  width: var(--nub-size);
+  height: var(--nub-size);
   // border-radius: 4px;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.1);

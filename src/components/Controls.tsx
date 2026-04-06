@@ -223,7 +223,6 @@ const Controls: React.FC = () => {
           <button
             className={styles.iconButton}
             onClick={() => dispatch({ type: Actions.doWeave, payload: { move: -1 } })}
-            disabled={weavingRow === 0 && weavingStrand === 'left'}
             title="Previous Step"
           >
             <ChevronLeft size={20} />
