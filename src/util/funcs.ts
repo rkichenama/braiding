@@ -1,137 +1,149 @@
 import { BraidingState } from '../context';
 
 export const newArr = <T>(n: number, v: T): T[] => (new Array(n)).fill(v);
-export const asWord = (isOver: any) => (isOver && 'o') || 'u';
+export const asWord = (isOver: boolean | any) => (isOver && 'o') || 'u';
+
+/**
+ * Converts a pattern word (e.g., 'u4 o4') into an array of booleans.
+ */
 export const asValue = (word: string, len?: number): boolean[] => {
-  let value: boolean[];
+  let value: boolean[] = [];
   word = word.trim();
   if (word.includes(' ')) {
-    value = [].concat(...word.split(' ').map((w) => asValue(w)));
+    value = ([] as boolean[]).concat(...word.split(' ').map((w) => asValue(w)));
   } else {
     let n = 1;
     let isOver = true;
     try {
-      const [ matchedNum ] = (word.match(/\d+/) || []);
-      n = Number(matchedNum || 1);
-      isOver = /^o/.test(word);
+      const matchedNum = (word.match(/\d+/) || []);
+      n = Number(matchedNum[0] || 1);
+      isOver = /^o/i.test(word);
     } catch (error) { /* */ }
     value = newArr(n, isOver);
   }
   if (len) {
+    const originalValue = [...value];
     while (value.length < len) {
-      value.push(...value);
+      value.push(...originalValue);
     }
     value = value.slice(0, len);
   }
   return value;
 };
+
+/**
+ * Converts a boolean array back into a pattern string (e.g., 'u4 o4').
+ */
 export const asString = (bin: boolean[]) => {
+  if (bin.length === 0) return '';
   const overUnders = bin.map(asWord);
-  // const overUnders = (parseInt(bin, 36)).toString(2).padStart(len, '0').split('').map(Number).map(asWord);
-  // @ts-ignore
-  overUnders.push('f');
-  let p = overUnders.shift();
-  let same = 1;
-  overUnders.forEach(ou => {
-    if (p.slice(-1) === ou) {
-      same += 1;
+  const result: string[] = [];
+  
+  let current = overUnders[0];
+  let count = 1;
+  
+  for (let i = 1; i < overUnders.length; i++) {
+    if (overUnders[i] === current) {
+      count++;
     } else {
-      p += `${same > 1 ? same : ''} ${ou}`;
-      same = 1;
+      result.push(`${current}${count > 1 ? count : ''}`);
+      current = overUnders[i];
+      count = 1;
     }
-  });
-  return p.replace(/ f/g, '');
+  }
+  result.push(`${current}${count > 1 ? count : ''}`);
+  
+  return result.join(' ');
 }
 
 const nBase = 36;
 
-export const compressPattern = (rows, left, right, leftClr, rightClr, matrix) => [
-  rows,
-  left,
-  right,
-  leftClr,
-  rightClr,
-  matrix.map(
-    r => r.map(
-      c => parseInt(c.map(v => v && 1 || 0).join(''), 2).toString(36)
-    ).join('|')
-  ).join(';')
-].join(',');
-export const basify = (c: boolean[]) => parseInt(c.map(v => v && 1 || 0).join(''), 2).toString(nBase);
-export const deBasify = (side: string, len: number) => parseInt(side, nBase)
-  .toString(2)
-  .padStart(len, '0')
-  .split('')
-  .map(nub => nub != '0');
+export const basify = (c: boolean[]) => {
+  if (c.length === 0) return '0';
+  return parseInt(c.map(v => v ? '1' : '0').join(''), 2).toString(nBase);
+};
+
+export const deBasify = (side: string, len: number) => {
+  return parseInt(side, nBase)
+    .toString(2)
+    .padStart(len, '0')
+    .split('')
+    .map(nub => nub !== '0');
+};
+
 export const encBase = (base: string, len: number) => basify(asValue(base, len));
 export const decBase = (base: string, len: number) => asString(deBasify(base, len));
-export function encPattern({ rows, left, right, leftBase, rightBase, pattern, ...meta }: BraidingState) {
-  const {
-    leftClr1, leftClr2, leftClr3, leftClr4, leftClr5, leftClr6, leftClr7, leftClr8, leftClr9, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32,
-    rightClr1, rightClr2, rightClr3, rightClr4, rightClr5, rightClr6, rightClr7, rightClr8, rightClr9, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32,
-  } = meta;
-  const clrsLeft = [leftClr1, leftClr2, leftClr3, leftClr4, leftClr5, leftClr6, leftClr7, leftClr8, leftClr9, leftClr10, leftClr11, leftClr12, leftClr13, leftClr14, leftClr15, leftClr16, leftClr17, leftClr18, leftClr19, leftClr20, leftClr21, leftClr22, leftClr23, leftClr24, leftClr25, leftClr26, leftClr27, leftClr28, leftClr29, leftClr30, leftClr31, leftClr32];
-  const clrsRight = [rightClr1, rightClr2, rightClr3, rightClr4, rightClr5, rightClr6, rightClr7, rightClr8, rightClr9, rightClr10, rightClr11, rightClr12, rightClr13, rightClr14, rightClr15, rightClr16, rightClr17, rightClr18, rightClr19, rightClr20, rightClr21, rightClr22, rightClr23, rightClr24, rightClr25, rightClr26, rightClr27, rightClr28, rightClr29, rightClr30, rightClr31, rightClr32];
+
+/**
+ * Encodes the entire BraidingState into a single string for URL persistence or export.
+ * Format: rows,left,right,leftBaseEncoded,rightBaseEncoded,leftColorsJoin,rightColorsJoin,patternEncoded
+ */
+export function encPattern(state: BraidingState) {
+  const { 
+    rows, left, right, leftBase, rightBase, pattern, 
+    leftColors, rightColors 
+  } = state;
+
   return [
-    rows, left, right,
+    rows,
+    left,
+    right,
     encBase(leftBase, left),
     encBase(rightBase, right),
-    clrsLeft.slice(0, left).join(';'),
-    clrsRight.slice(0, right).join(';'),
-    (pattern as unknown as boolean[][][]).map(
+    leftColors.slice(0, left).join(';'),
+    rightColors.slice(0, right).join(';'),
+    (pattern as boolean[][][]).map(
       r => r.map(
-        basify
+        side => basify(side)
       ).join('|')
     ).join(';')
   ].join(',');
 }
-export const decompressPattern = (str: string) => {
-  const [ rows, left, right, leftClr, rightClr, patternStr ] = str.split(',');
-  const len = [ Number(left), Number(right) ];
-  return {
-    rows,
-    left, right, leftClr, rightClr,
-    pattern: patternStr
-      .split(';')
-      .map(row => row
-        .split('|')
-        .map((side, i) => parseInt(side, 36)
-          .toString(2)
-          .padStart(len[i], '0')
-          .split('')
-          .map(nub => !!parseInt(nub, 2))
-        )
-      )
-  }
-};
-export function decPattern(str: string) {
+
+/**
+ * Decodes a pattern string back into a partial BraidingState.
+ * Supports the new array-based color format.
+ */
+export function decPattern(str: string): Partial<BraidingState> {
+  if (!str) return {};
+  
   try {
-    const [ rows, left, right, leftBase, rightBase, leftClrs, rightClrs, patternStr ] = str.split(',');
-    const len = [ Number(left), Number(right) ];
-    const ll = leftClrs.split(';')
-      .map((clr, i) => ({
-        [`leftClr${(i + 1).toString()}`]: clr,
-      })) as any[];
-    const rr = rightClrs.split(';')
-      .map((clr, i) => ({
-        [`rightClr${(i + 1).toString()}`]: clr,
-      })) as any[];
-    const val = {
-      rows: Number(rows),
-      left: len[0], right: len[1],
-      leftBase: decBase(leftBase, len[0]),
-      rightBase: decBase(rightBase, len[1]),
-      ...Object.assign({}, ...ll),
-      ...Object.assign({}, ...rr),
+    const parts = str.split(',');
+    if (parts.length < 8) return {};
+
+    const [ 
+      rows, left, right, leftBase, rightBase, 
+      leftClrs, rightClrs, patternStr 
+    ] = parts;
+
+    const nRows = Number(rows);
+    const nLeft = Number(left);
+    const nRight = Number(right);
+
+    const decodedLeftColors = leftClrs.split(';');
+    const decodedRightColors = rightClrs.split(';');
+
+    // Fill up to 32 colors with defaults if needed
+    const leftColors = [...new Array(32)].map((_, i) => decodedLeftColors[i] || '#272823');
+    const rightColors = [...new Array(32)].map((_, i) => decodedRightColors[i] || '#51208f');
+
+    return {
+      rows: nRows,
+      left: nLeft,
+      right: nRight,
+      leftBase: decBase(leftBase, nLeft),
+      rightBase: decBase(rightBase, nRight),
+      leftColors,
+      rightColors,
       pattern: patternStr
         .split(';')
         .map(row => row
           .split('|')
-          .map((side, i)=> deBasify(side, len[i]))
-        )
+          .map((side, i) => deBasify(side, i === 0 ? nLeft : nRight))
+        ) as boolean[][][]
     };
-    return val;
-  } catch (_err) {
+  } catch (error) {
+    console.error('Failed to decode pattern', error);
     return {};
   }
 }

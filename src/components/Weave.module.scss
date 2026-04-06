@@ -1,0 +1,171 @@
+.weaveContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.weaveActions {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.exportButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background-color: #fff;
+  border: 1px solid #e1e1e3;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    background-color: #f9f9fb;
+    border-color: #c1c1c3;
+  }
+}
+
+.weave {
+  display: grid;
+  gap: 10px 0px;
+  padding: 20px;
+  background-color: transparent;
+}
+
+.nubRow {
+  display: flex;
+  transition: background-color 0.2s;
+
+  &.current {
+    box-shadow:
+      0 0 0 2px black,
+      0 0 0 4px white;
+  }
+}
+
+.leftHand {
+  justify-content: flex-end;
+  transform: rotate(45deg);
+  transform-origin: right top;
+
+  &::before {
+    color: var(--accent-clr);
+    justify-content: flex-end;
+    content: attr(data-dir);
+    position: absolute;
+    top: 0;
+    right: calc(100% + 4px);
+    transform-origin: right bottom;
+    transform: rotateZ(-45deg);
+    white-space: nowrap;
+  }
+}
+
+.rightHand {
+  justify-content: flex-start;
+  transform: translateY(-26px) rotate(-45deg);
+  transform-origin: left bottom;
+  flex-direction: row-reverse;
+
+  &::after {
+    color: var(--accent-clr);
+    justify-content: flex-start;
+    content: attr(data-dir);
+    position: absolute;
+    top: 0;
+    left: calc(100% + 4px);
+    transform-origin: left bottom;
+    transform: rotateZ(45deg);
+    white-space: nowrap;
+  }
+}
+
+.nub {
+  width: 24px;
+  height: 24px;
+  // border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: transform 0.1s, box-shadow 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    transform: scale(1.1);
+    z-index: 5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &.over,
+  &.under {
+    color: white;
+    text-shadow:
+      -1px 1px 1px black,
+      1px -1px 1px black,
+      -1px -1px 1px black,
+      1px 1px 1px black;
+  }
+
+  &.over:hover::before {
+    content: "O";
+  }
+  &.under:hover::before {
+    content: "U";
+  }
+}
+
+// @for $i from 1 through 32 {
+//   .rightHand .strand#{$i} {
+//     background-color: var(--clr-left-#{($i % 32) + 1});
+
+//     @for $j from 1 through 32 {
+//       .strand-#{$j}.under {
+//         background-color: var(--clr-right-#{(($i + $j) % 32)});
+//       }
+//     }
+//   }
+//   .leftHand .strand#{$i} {
+//     background-color: var(--clr-right-#{($i % 32) + 1});
+
+//     @for $j from 1 through 32 {
+//       .strand-#{$j}.under {
+//         background-color: var(--clr-left-#{(($i + $j) % 32) + 1});
+//       }
+//     }
+//   }
+// }
+
+.rightHand {
+  @for $i from 1 through 64 {
+    &.row-#{$i} {
+      background-color: var(--clr-left-#{($i % 32) + 1});
+
+      @for $j from 1 through 64 {
+        .strand-#{$j}.under {
+          background-color: var(--clr-right-#{(($i + $j) % 32)});
+        }
+      }
+    }
+  }
+}
+.leftHand {
+  @for $i from 1 through 64 {
+    &.row-#{$i} {
+      background-color: var(--clr-right-#{($i % 32) + 1});
+
+      @for $j from 1 through 64 {
+        .strand-#{$j}.under {
+          background-color: var(--clr-left-#{(($i + $j) % 32) + 1});
+        }
+      }
+    }
+  }
+}
+

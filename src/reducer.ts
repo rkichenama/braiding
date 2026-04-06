@@ -1,6 +1,6 @@
-import { useReducer } from 'react';
-import { BraidingState, defaultValue } from './context';
-import { asValue, encBase, newArr } from './util/funcs';
+import { useReducer, Reducer } from 'react';
+import { BraidingState, defaultValue, SavedPattern } from './context';
+import { asValue, newArr } from './util/funcs';
 import { serialize } from './hashify';
 
 export type MenuAction = {
@@ -8,18 +8,11 @@ export type MenuAction = {
   payload?: any
 }
 
-type ReducerType = (state: BraidingState, action: MenuAction) => BraidingState;
-
 const hashifyState = (state: BraidingState) => {
-  // const { rows, leftBase, rightBase, left, right } = state;
-  // location.hash = `#${rows}/${left}/${right}/${
-  //   encBase(leftBase, left)
-  // }/${
-  //   encBase(rightBase, right)
-  // }`;
   location.hash = `#${serialize(state)}`;
   return state;
 };
+
 export const Actions = {
   changeInputs: 'changeInputs',
   initialzePattern: 'initPattern',
@@ -27,24 +20,33 @@ export const Actions = {
   replaceState: 'replaceState',
   changeColors: 'changeColors',
   doWeave: 'doWeave',
+  saveToHistory: 'saveToHistory',
+  deleteFromHistory: 'deleteFromHistory',
 };
-export function patternToMatrix(rows: number, left: number, right: number, lBase: string, rBase: string) {
-  const [ leftBase, rightBase ] = [asValue(lBase, left), asValue(rBase, right)];
-  const v = newArr(rows, false)
-    .map(_ => ([
-      newArr(left, true).map((_, i) => leftBase[i % leftBase.length]),
-      newArr(right, true).map((_, i) => rightBase[i % rightBase.length])
-    ]));
-  return v;
+
+export function patternToMatrix(rows: number, left: number, right: number, lBase: string, rBase: string): boolean[][][] {
+  const [leftBase, rightBase] = [asValue(lBase, left), asValue(rBase, right)];
+  return newArr(rows, false).map(() => ([
+    newArr(left, true).map((_, i) => leftBase[i % leftBase.length]),
+    newArr(right, true).map((_, i) => rightBase[i % rightBase.length])
+  ])) as boolean[][][];
 }
-const Mutations = {
-  [Actions.replaceState]: (_, { payload }) => payload as BraidingState,
+
+const Mutations: Record<string, (state: BraidingState, action: MenuAction) => BraidingState> = {
+  [Actions.replaceState]: (state, { payload }) => ({ ...state, ...payload }),
   [Actions.changeInputs]: (state, { payload }) => {
-    // todo: this is lazy
-    return Mutations[Actions.initialzePattern](state, { payload });
+    const newState = {
+      ...state,
+      ...payload,
+      weavingRow: defaultValue.weavingRow,
+      weavingStrand: defaultValue.weavingStrand,
+    };
+    const { left, right, rows, rightBase, leftBase } = newState;
+    const pattern = patternToMatrix(rows, left, right, leftBase, rightBase);
+    return { ...newState, pattern };
   },
   [Actions.initialzePattern]: (state, { payload }) => {
-    if (!payload) { return state }
+    if (!payload) return state;
     const newState = {
       ...state,
       ...payload,
@@ -52,7 +54,7 @@ const Mutations = {
       weavingStrand: defaultValue.weavingStrand,
     };
     const { left, right, rows, rightBase, leftBase, pattern: p } = newState;
-    if (p.length != rows) {
+    if (p.length !== rows) {
       const pattern = patternToMatrix(rows, left, right, leftBase, rightBase);
       return { ...newState, pattern };
     }
@@ -78,50 +80,67 @@ const Mutations = {
   [Actions.changeColors]: (state, { payload }) => {
     const { hand, color } = payload;
     let strands: string | number[] = payload.strands;
-    if (
-      /^(left|right)$/i.test(hand) &&
-      (Array.isArray(strands) || /^(all|even|odd)$/i.test(strands))
-    ) {
-      const newColors = {} as Partial<BraidingState>;
+    const isLeft = hand.toLowerCase() === 'left';
+    const currentColors = isLeft ? [...state.leftColors] : [...state.rightColors];
+
+    if (Array.isArray(strands) || /^(all|even|odd)$/i.test(strands)) {
       if (!Array.isArray(strands)) {
-        const s = (strands as string);
+        const s = strands as string;
         strands = /^all$/i.test(s)
           ? newArr(32, 0).map((_, i) => (i + 1))
           : newArr(16, 0).map((_, i) => (
             /^even$/.test(s) ? ((i * 2) + 2) : ((i * 2) + 1)
           ))
       }
+      
       (strands as number[]).forEach((strand) => {
-        newColors[`${hand}Clr${strand}`] = color;
+        if (strand >= 1 && strand <= 32) {
+          currentColors[strand - 1] = color;
+        }
       });
 
       return {
         ...state,
-        ...newColors,
+        [isLeft ? 'leftColors' : 'rightColors']: currentColors,
       };
     }
     return state;
   },
-  [Actions.doWeave]: ({ weavingRow, weavingStrand, ...state }, { payload: { move } }) => {
-    const newStrand = (weavingStrand === 'left')
-      ? 'right'
-      : 'left';
-    let newRow = (newStrand === 'left')
-      ? (state.rows + weavingRow + move) % state.rows
-      : weavingRow;
-    const newState = { ...state, weavingRow: newRow, weavingStrand: newStrand };
-    return newState;
+  [Actions.doWeave]: ({ weavingRow, weavingStrand, rows, ...state }, { payload: { move } }) => {
+    const newStrand = (weavingStrand === 'left') ? 'right' : 'left';
+    let newRow = weavingRow;
+    if (newStrand === 'left') {
+      newRow = (rows + weavingRow + move) % rows;
+    }
+    return { ...state, weavingRow: newRow, weavingStrand: newStrand, rows };
+  },
+  [Actions.saveToHistory]: (state, { payload: { name } }) => {
+    const newPattern: SavedPattern = {
+      id: Date.now().toString(),
+      name: name || `Pattern ${state.history.length + 1}`,
+      pattern: serialize(state),
+      timestamp: Date.now(),
+    };
+    return {
+      ...state,
+      history: [newPattern, ...state.history]
+    };
+  },
+  [Actions.deleteFromHistory]: (state, { payload: { id } }) => {
+    return {
+      ...state,
+      history: state.history.filter(p => p.id !== id)
+    };
   }
-}
+};
 
-const initializer = () => (defaultValue);
-
-const reducer = (state, action) => {
+const reducer: Reducer<BraidingState, MenuAction> = (state, action) => {
   const mutation = Mutations[action.type];
   if (mutation) {
-    return hashifyState(mutation(state, action))
+    const newState = mutation(state, action);
+    return hashifyState(newState);
   }
   return state;
 };
 
-export const useBraidingReducer = (init?: BraidingState) => useReducer<ReducerType, BraidingState>(reducer, init, initializer);
+export const useBraidingReducer = (init: BraidingState) => useReducer(reducer, init);
