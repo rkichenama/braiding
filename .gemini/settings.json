@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "AfterTool": [
+      {
+        "matcher": "replace|write_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r 'select(.tool_output.success and .tool_input.file_path) | .tool_input.file_path | select(endswith(\".ts\") or endswith(\".tsx\"))' | xargs -r npx prettier --write",
+            "name": "Format with Prettier",
+            "description": "Automatically run prettier on TypeScript files after Gemini edits them."
+          }
+        ]
+      }
+    ]
+  }
+}
